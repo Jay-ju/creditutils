@@ -7,7 +7,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setup(
     name='creditutils',
-    version='0.0.1',
+    version='0.0.2',
     author='liuzhy',
     author_email='liuzhy@tianxiaxinyong.com',
     description='python small tools util.',
