@@ -8,7 +8,7 @@ Created on 2013-8-15
 
 import creditutils.exec_cmd as exec_cmd
 import re
-import creditutils.utility_util as util
+import creditutils.trivial_util as util
 import creditutils.system_util as system_util
 import traceback
 import subprocess

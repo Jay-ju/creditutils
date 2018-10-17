@@ -8,7 +8,7 @@ import unittest
 import json
 import datetime
 
-import creditutils.utility_util as myutility
+import creditutils.trivial_util as myutility
 import creditutils.file_util as myfile
 import creditutils.base_util as base
 
