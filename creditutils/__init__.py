@@ -1,5 +1,5 @@
-from creditutils.creditutils import *
-import creditutils.creditutils as creditutils
+from creditutils import *
+import creditutils as creditutils
 
 
 __all__ = dir(creditutils)
