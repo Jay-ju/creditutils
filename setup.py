@@ -19,7 +19,8 @@ setup(
         'paramiko>=2.4.1',
         'xmltodict>=0.11.0',
         'chardet>=3.0.4',
-        'xlrd>=1.1.0'
+        'xlrd>=1.1.0',
+        'pypng>=0.0.18'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
