@@ -401,8 +401,8 @@ def checkout_or_update(code_root, code_url, revision=None, branch=None):
         os.makedirs(code_root)
         clone(code_url, code_root, revision, branch)
     else:
-        sub_itmes = os.listdir(code_root)
-        if sub_itmes:
+        sub_items = os.listdir(code_root)
+        if sub_items:
             git_root = get_git_root(code_root)
             is_exists = is_repository(git_root)
             if is_exists:
