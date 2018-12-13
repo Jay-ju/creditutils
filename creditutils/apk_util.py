@@ -230,12 +230,22 @@ class Extractor(object):
 
 
 class ApkSigner:
-    _SIGN_FORMAT = 'jarsigner -digestalg SHA1 -sigalg MD5withRSA -keystore {} -storepass {} -signedjar {} {} {}'
+    # _SIGN_FORMAT = 'jarsigner -digestalg SHA1 -sigalg MD5withRSA -keystore {} -storepass {} -signedjar {} {} {}'
 
-    def __init__(self, keystore, storepass, storealias):
+    # apksign.bat 内容如下，具体路径请依据本机环境进行配置
+    # @echo off
+    # set JAR_PATH=%ANDROID_HOME%\build-tools\28.0.3\lib\apksigner.jar
+    # java -jar %JAR_PATH% sign %*
+    _SIGN_FORMAT = 'apksign.bat --ks {} --ks-pass pass:{} --ks-key-alias {}  --key-pass pass:{} --out {} {}'
+
+    def __init__(self, keystore, storepass, storealias, aliaspass=None):
         self.keystore = keystore
         self.storepass = storepass
         self.storealias = storealias
+        if not aliaspass:
+            self.aliaspass = storepass
+        else:
+            self.aliaspass = aliaspass
 
     def sign(self, src_file, dst_file):
         src_file = os.path.abspath(src_file)
@@ -243,7 +253,7 @@ class ApkSigner:
         if os.path.exists(dst_file):
             os.remove(dst_file)
 
-        sign_cmd = ApkSigner._SIGN_FORMAT.format(self.keystore, self.storepass, dst_file, src_file, self.storealias)
+        sign_cmd = ApkSigner._SIGN_FORMAT.format(self.keystore, self.storepass, self.storealias, self.aliaspass, dst_file, src_file)
         rtn = subprocess.run(sign_cmd, shell=True, check=True, universal_newlines=True)
         return rtn.returncode == 0
 
@@ -253,9 +263,43 @@ def get_default_signed_path(src_path):
     return first_part + SIGNED_SUFFIX + ext_part
 
 
-def sign_apk(keystore, storepass, storealias, src_file, dst_file=None):
-    signer = ApkSigner(keystore, storepass, storealias)
+def sign_apk(keystore, storepass, storealias, src_file, dst_file=None, aliaspass=None):
+    signer = ApkSigner(keystore, storepass, storealias, aliaspass)
     if not dst_file:
         dst_file = get_default_signed_path(src_file)
 
     return signer.sign(src_file, dst_file)
+
+
+def zipalign(src_file, dst_file=None):
+    # zipalign.bat内容如下，具体路径请依据本机环境进行配置
+    # @echo off
+    # set BIN_PATH=%ANDROID_HOME%\build-tools\28.0.3\zipalign.exe
+    # %BIN_PATH% %*
+    # _ALIGN_FORMAT = 'zipalign.bat -v -f 4 {} {}'
+    _ALIGN_FORMAT = 'zipalign.bat -f 4 {} {}'
+    src_file = os.path.abspath(src_file)
+    if not dst_file:
+        dst_file = src_file
+    else:
+        dst_file = os.path.abspath(dst_file)
+
+    if src_file != dst_file and os.path.isfile(dst_file):
+        os.remove(dst_file)
+
+    to_run_cmd = _ALIGN_FORMAT.format(src_file, dst_file)
+    subprocess.run(to_run_cmd, shell=True, check=True, universal_newlines=True)
+
+
+def zipalign_check(src_file):
+    # zipalign.bat内容如下，具体路径请依据本机环境进行配置
+    # @echo off
+    # set BIN_PATH=%ANDROID_HOME%\build-tools\28.0.3\zipalign.exe
+    # %BIN_PATH% %*
+    # _ALIGN_FORMAT = 'zipalign.bat -c -v 4 {}'
+    _ALIGN_FORMAT = 'zipalign.bat -c 4 {}'
+    src_file = os.path.abspath(src_file)
+
+    to_run_cmd = _ALIGN_FORMAT.format(src_file)
+    rtn = subprocess.run(to_run_cmd, shell=True, check=False, universal_newlines=True)
+    return rtn.returncode == 0
