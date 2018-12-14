@@ -47,8 +47,8 @@ def test_align_check_apk():
 
 def test_main():
     # test_sign_apk()
-    # test_align_apk()
-    test_align_check_apk()
+    test_align_apk()
+    # test_align_check_apk()
 
 
 if __name__ == "__main__":

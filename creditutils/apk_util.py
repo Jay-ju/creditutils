@@ -271,7 +271,7 @@ def sign_apk(keystore, storepass, storealias, src_file, dst_file=None, aliaspass
     return signer.sign(src_file, dst_file)
 
 
-def zipalign(src_file, dst_file=None):
+def zipalign(src_file, dst_file):
     # zipalign.bat内容如下，具体路径请依据本机环境进行配置
     # @echo off
     # set BIN_PATH=%ANDROID_HOME%\build-tools\28.0.3\zipalign.exe
@@ -279,12 +279,15 @@ def zipalign(src_file, dst_file=None):
     # _ALIGN_FORMAT = 'zipalign.bat -v -f 4 {} {}'
     _ALIGN_FORMAT = 'zipalign.bat -f 4 {} {}'
     src_file = os.path.abspath(src_file)
-    if not dst_file:
-        dst_file = src_file
-    else:
-        dst_file = os.path.abspath(dst_file)
+    dst_file = os.path.abspath(dst_file)
 
-    if src_file != dst_file and os.path.isfile(dst_file):
+    if not os.path.isfile(src_file):
+        raise Exception(f'{src_file} not exists!')
+
+    if src_file == dst_file:
+        raise Exception(f'{src_file} and {dst_file} is the same file!')
+
+    if os.path.isfile(dst_file):
         os.remove(dst_file)
 
     to_run_cmd = _ALIGN_FORMAT.format(src_file, dst_file)
