@@ -231,7 +231,7 @@ class ProjectBuilder:
                 dst_class_zip_path = self.info[ProjectBuilder.OUTPUT_DIRECTORY_FLAG] + os.sep + 'classes.zip'
 
                 #                 dst_class_path = self.info[ProjectBuilder.OUTPUT_DIRECTORY_FLAG] + os.sep + dst_class_relative_path
-                #                 dst_class_path = myfile.normalize_path(dst_class_path)
+                #                 dst_class_path = file_util.normalize_path(dst_class_path)
 
                 #                 if os.path.isdir(dst_class_path):
                 #                     shutil.rmtree(dst_class_path)
