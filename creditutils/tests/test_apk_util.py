@@ -23,8 +23,8 @@ class Test(unittest.TestCase):
 
 
 def test_sign_apk():
-    src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec.apk'
-    dst_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_1.apk'
+    src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_2.apk'
+    dst_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_3.apk'
     keystore = r'D:\auto_build\pytxxy\project\develop\Android\pytxxy\pycreditKeystore'
     storepass = 'pycreditapkkey'
     storealias = 'pycreditKeystoreAlias'
@@ -40,7 +40,8 @@ def test_align_apk():
 def test_align_check_apk():
     # src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_1.apk'
     # src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_2.apk'
-    src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_1_yingyb.apk'
+    # src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_3.apk'
+    src_file = r'E:\temp\apk\3.5.4\3.5.4beta_p_01-487-20181206_sec_3.apk'
     result = apk_util.zipalign_check(src_file)
     info = "The file's align status: {}.".format(result)
     print(info)
@@ -48,8 +49,8 @@ def test_align_check_apk():
 
 def test_main():
     # test_sign_apk()
-    test_align_apk()
-    # test_align_check_apk()
+    # test_align_apk()
+    test_align_check_apk()
 
 
 if __name__ == "__main__":
