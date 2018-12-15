@@ -273,6 +273,19 @@ def get_file_list(src_dir, sep=os.sep):
     return rec.get_relative_list(src_dir, sep=sep)
 
 
+def get_middle_name(src_name, suffix=None):
+    if not suffix:
+        suffix = '_middle4temp'
+
+    filename, extension = os.path.splitext(src_name)
+    return filename + suffix + extension
+
+
+def get_middle_path(src_path, suffix=None):
+    file_path, filename = os.path.split(src_path)
+    return os.path.join(file_path, get_middle_name(filename, suffix))
+
+
 if __name__ == '__main__':
     # file_name = r'D:\temp\for_test.txt'
     # result = detect_file_enc(file_name)
