@@ -67,14 +67,14 @@ def test_get_statuses():
 
 def test_checkout():
     dst_dir = r'E:\temp\pytxxy\pytxxy'
-    url = 'http://172.21.1.4:81/repos/androidapp/PYCreditAndroidFramework/alipay_lib'
+    url = ''
     svn.checkout(url, dst_dir)
     print('to the end')
 
 
 def test_checkout_with_specified_revision():
     dst_dir = r'E:\temp\pytxxy\PYCreditAF'
-    url = 'http://172.21.1.4:81/repos/androidapp/PYCreditAndroidFramework/PYCreditAF'
+    url = ''
     svn.checkout(url, dst_dir, 3900)
     print('to the end')
 
@@ -84,7 +84,7 @@ def test_checkout_with_default_dir():
     dir_ = os.getcwd()
     os.chdir(dst_dir)
 
-    url = 'http://172.21.1.4:81/repos/androidapp/PYCreditAndroidFramework/alipay_lib'
+    url = ''
     try:
         svn.checkout(url)
     finally:
