@@ -9,7 +9,7 @@ Created on 2013-7-4
 
 import os
 import inspect
-
+import platform
 
 # 不能对'self.variable'进行解析，因为self不确定
 def is_defined(var_name):
@@ -40,6 +40,37 @@ __modpath__ = module_path(func_flag)
 # 该部分代码用于作参考，直接调用不会显示被调用的文件名和行号，应该将整体代码拷贝到相应的文件中使用
 def get_file_line():
     return (__modpath__, inspect.currentframe().f_back.f_lineno)
+
+
+# 判断是否是windows系统
+def is_windows_system():
+    return 'Windows' in platform.system()
+
+
+# 判断是否是Linux系统
+def is_linux_system():
+    return 'Linux' in platform.system()
+
+
+def get_display_font():
+    if is_windows_system():
+        # 黑体
+        font_name = 'SimHei'
+
+        # 微软雅黑
+        font_name = 'SimSun'
+
+        # 微软雅黑
+        font_name = 'Microsoft YaHei'
+        return font_name
+    elif is_linux_system():
+        # font_name = 'AR PL UMing'
+        # font_name = 'WenQuanYi Zen Hei'
+        # font_name = 'WenQuanYi Zen Hei Mono'
+        font_name = 'Microsoft YaHei'
+        return font_name
+
+    return None
 
 
 if __name__ == '__main__':
