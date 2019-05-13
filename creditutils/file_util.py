@@ -181,13 +181,21 @@ def process_dir(src_dir, func, *args, **dicts):
 
 
 def process_dir_src_to_dst(src_dir, dst_dir, func, *args, **dicts):
-    for root, dirs, files in os.walk(src_dir):
+    if not src_dir.endswith(os.sep):
+        src_dir += os.sep
+
+    if not dst_dir.endswith(os.sep):
+        dst_dir += os.sep
+
+    for root, _, files in os.walk(src_dir):
         for name in files:
             file_path = os.path.join(root, name)
             dst_path = file_path.replace(src_dir, dst_dir)
-            base_dst_dir = os.path.dirname(dst_path)
-            if not os.path.exists(base_dst_dir):
-                os.makedirs(base_dst_dir)
+
+            # 不再做可能冗余的创建文件父目录操作
+            # base_dst_dir = os.path.dirname(dst_path)
+            # if not os.path.exists(base_dst_dir):
+            #     os.makedirs(base_dst_dir)
 
             func(file_path, dst_path, *args, **dicts)
 
