@@ -2,7 +2,7 @@ import png
 import binascii
 
 
-TEXT_CHUNK_FLAG = 'tEXt'
+TEXT_CHUNK_FLAG = b'tEXt'
 
 
 # 根据png chunk数据格式生成字符串的二进制数据chunk
@@ -124,7 +124,7 @@ def main():
     # _read_write_whole_test()
     # _generate_text_chunk_test()
     # _read_write_chunks_test()
-    # _insert_text_chunk_to_png_test()
+#     _insert_text_chunk_to_png_test()
     _get_text_chunk_data_test()
 
 
